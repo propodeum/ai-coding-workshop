@@ -1,0 +1,38 @@
+{
+  "name": "AI Coding Workshop",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "features": {},
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "github.copilot",
+        "github.copilot-chat",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.python"
+        }
+      }
+    }
+  },
+  "forwardPorts": [3000, 8000],
+  "portsAttributes": {
+    "3000": { "label": "Frontend (Next.js)", "onAutoForward": "notify" },
+    "8000": { "label": "Backend (Python)", "onAutoForward": "notify" }
+  },
+  "postCreateCommand": "cp -n .env.example .env 2>/dev/null; echo 'Environment ready.'",
+  "remoteEnv": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}
