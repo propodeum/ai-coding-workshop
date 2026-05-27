@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 from llm import chat
@@ -17,4 +17,8 @@ class ChatRequest(BaseModel):
 
 @app.post("/chat")
 def chat_endpoint(req: ChatRequest):
-    return {"reply": chat(req.message)}
+    try:
+        return {"reply": chat(req.message)}
+    except RuntimeError as e:
+        # Missing API key, etc. — return a clean message instead of a 500.
+        raise HTTPException(status_code=503, detail=str(e))
