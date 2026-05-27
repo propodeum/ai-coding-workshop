@@ -14,7 +14,8 @@
         "ms-python.vscode-pylance",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "skellock.just"
       ],
       "settings": {
         "python.defaultInterpreterPath": "/usr/local/bin/python",
@@ -28,10 +29,11 @@
   },
   "forwardPorts": [3000, 8000],
   "portsAttributes": {
-    "3000": { "label": "Frontend (Next.js)", "onAutoForward": "notify" },
-    "8000": { "label": "Backend (Python)", "onAutoForward": "notify" }
+    "3000": { "label": "Frontend (Next.js)", "onAutoForward": "openBrowser" },
+    "8000": { "label": "Backend (FastAPI)", "onAutoForward": "silent" }
   },
-  "postCreateCommand": "cp -n .env.example .env 2>/dev/null; echo 'Environment ready.'",
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "postAttachCommand": "bash .devcontainer/welcome.sh",
   "remoteEnv": {
     "PYTHONDONTWRITEBYTECODE": "1"
   }
